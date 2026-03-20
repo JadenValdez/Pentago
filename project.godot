@@ -11,8 +11,18 @@ config_version=5
 [application]
 
 config/name="Pentago"
+run/main_scene="res://Scenes/Pentago.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://Scripts/GameManager.gd"
+SignalBus="*res://Scripts/SignalBus.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
 
 [rendering]
 

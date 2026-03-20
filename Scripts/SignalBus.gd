@@ -1,0 +1,2 @@
+signal start_placement_phase
+signal start_rotation_phase
