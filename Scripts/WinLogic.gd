@@ -12,6 +12,7 @@ var second_space_color: String
 func _ready() -> void:
 	SignalBus.send_second_space_color.connect(_send_second_space_color)
 
+#checks if the ball that was placed creates a five-in-a-row
 func CheckWinPlacement(space_coordinate, color) -> void:
 	first_space_coordinate = space_coordinate
 	first_space_color = color
@@ -22,32 +23,42 @@ func CheckWinPlacement(space_coordinate, color) -> void:
 	elif check_diagonal_win():
 		set_winner(first_space_color)
 	else:
+		#if a five-in-a-row was not created, then it moves to the rotation phase
 		SignalBus.start_rotation_phase.emit()
 	
+#checks for a horizontal five-in-a-row
 func check_horizontal_win() -> bool:
 	current_row = floor(first_space_coordinate/10.0)
 	for i in range(5):
 		for j in range(5):
 			second_space_coordinate = first_space_coordinate - 4 + i + j
 			
+			#if the coordinate is not on the same row (like 27 and 31), then a five-in-a-row is not possible
 			if floor(second_space_coordinate/10.0) != current_row:
 				break
 				
+			#if the coordinate doesn't exist on the board (like 20 or 28 on a board with 6 columns), then a five-in-a-row is not possible
 			if second_space_coordinate % 10 == 0 || second_space_coordinate % 10 > GameManager.SpaceColumns:
 				break
 				
+			#if the color of the coordinate is not the same, then a five-in-a-row is not possible
 			if !same_color():
 				break
 			
+			#if all five spaces have been checked with no errors, then a five-in-a-row has been formed
 			if j == 4:
 				return true
+	
+	#if all five-in-a-row possibilites that use this space have an error, then a horizontal five-in-a-row is not possible
 	return false
 
+#checks for a vertical five-in-a-row
 func check_vertical_win() -> bool:
 	for i in range(5):
 		for j in range(5):
 			second_space_coordinate = first_space_coordinate - 40 + i*10 + j*10
 			
+			#if the coordinate does not exist on the board (like 4 or 72 on a board with 6 rows, then a five-in-a-row is not possible
 			if second_space_coordinate < 10 || second_space_coordinate > (GameManager.SpaceRows+1) * 10:
 				break
 				
@@ -58,6 +69,8 @@ func check_vertical_win() -> bool:
 				return true
 	return false
 
+#checks for a diagonal five-in-a-row
+#this combines the logic for the hoizontal and vertical checks
 func check_diagonal_win() -> bool:
 	current_row = floor(first_space_coordinate/10.0)
 	for i in range(5):
@@ -82,6 +95,8 @@ func check_diagonal_win() -> bool:
 				return true
 	return false
 	
+#checks if both balls are the same color
+#if they aren't, then a five-in-a-row isn't possible
 func same_color() -> bool:
 	SignalBus.get_second_space_color.emit(second_space_coordinate)
 	if first_space_color == second_space_color:
@@ -89,8 +104,10 @@ func same_color() -> bool:
 	else:
 		return false
 
+#gets the color of the second space to check against
 func _send_second_space_color(status) -> void:
 	second_space_color = status
 	
+#if a five-in-a-row is created, then the current player is the winner
 func set_winner(winner) -> void:
 	print(winner)

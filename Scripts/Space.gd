@@ -18,9 +18,11 @@ func _ready() -> void:
 	SignalBus.get_second_space_color.connect(_get_second_space_color)
 	label.text = str(space_coordinate)
 
+#changes color based on who's ball it currently holds
 func _draw() -> void:
 	draw_circle(Vector2(0, 0), 32, COLORS[status])
 
+#places the current player's ball on this space when clicked
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
@@ -29,14 +31,17 @@ func _on_control_gui_input(event: InputEvent) -> void:
 				queue_redraw()
 				WinLogic.CheckWinPlacement(space_coordinate, GameManager.CurrentPlayer)
 
+#becomes active during the placement phase
 func _start_placement_phase() -> void:
 	control.show()
 	label.show()
 	
+#becomes inactive during the placement phase
 func _start_rotation_phase() -> void:
 	control.hide()
 	label.hide()
 	
+#sends information about its own color for win condition purposes
 func _get_second_space_color(second_coordinate) -> void:
 	if second_coordinate == space_coordinate:
 		SignalBus.send_second_space_color.emit(status)

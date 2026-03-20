@@ -8,6 +8,7 @@ func _ready() -> void:
 	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
 	create_blocks()
 
+#creates a grid of blocks, each which contain 9 spaces
 func create_blocks() -> void:
 	for i in range(GameManager.BlockRows):
 		for j in range(GameManager.BlockColumns):
@@ -16,6 +17,8 @@ func create_blocks() -> void:
 			instance.block_coordinate = (i+1) * 10 + (j+1)
 			add_child(instance)
 
+#changes the current player
+#currently a stand-in, as rotation phase isnt implemented yet
 func _start_rotation_phase() -> void:
 	if GameManager.CurrentPlayer == "White":
 		GameManager.CurrentPlayer = "Black"
