@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://Scripts/GameManager.gd"
 SignalBus="*res://Scripts/SignalBus.gd"
+WinLogic="*res://Scripts/WinLogic.gd"
 
 [debug]
 

@@ -12,3 +12,13 @@ offset_top = 8.0
 offset_right = 280.0
 offset_bottom = 280.0
 color = Color(0.18359, 0.18359, 0.18359, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 280.0
+
+[connection signal="gui_input" from="Control" to="." method="_on_control_gui_input"]
