@@ -12,3 +12,5 @@ signal select_block
 signal rotate_counterclockwise
 signal rotate_clockwise
 signal set_space_color
+
+signal end_game

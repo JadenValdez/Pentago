@@ -142,10 +142,16 @@ func _send_first_space_color(status) -> void:
 func _send_second_space_color(status) -> void:
 	second_space_color = status
 	
-#if a five-in-a-row is created, then the current player is the winner
+#if a five-in-a-row is created, then whoever owns it is the winner
+#if a five-in-a-row is created for both players, then it is a tie
 func set_winner(winner) -> void:
-	print(winner)
+	if winner == "Tie":
+		SignalBus.end_game.emit("It's a Tie!")
+	else:
+		SignalBus.end_game.emit(winner + " wins!")
 
+#if a player got a five-in-a-row, the game ends
+#otherwise, the game continues with the next player taking their turn
 func check_win_condition() -> void:
 	if white_won && black_won:
 		set_winner("Tie")

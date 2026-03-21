@@ -2,10 +2,11 @@ extends Node2D
 
 const BLOCK = preload("res://Scenes/Block.tscn")
 const screen_size = Vector2(1152, 648)
+@onready var winner_label: Label = $WinnerLabel
 
 
 func _ready() -> void:
-	#SignalBus.start_rotation_phase.connect(_start_rotation_phase)
+	SignalBus.end_game.connect(_end_game)
 	create_blocks()
 
 #creates a grid of blocks, each which contain 9 spaces
@@ -17,12 +18,6 @@ func create_blocks() -> void:
 			instance.block_coordinate = (i+1) * 10 + (j+1)
 			add_child(instance)
 
-#changes the current player
-#currently a stand-in, as rotation phase isnt implemented yet
-#func _start_rotation_phase() -> void:
-	#if GameManager.CurrentPlayer == "White":
-		#GameManager.CurrentPlayer = "Black"
-	#else: 
-		#GameManager.CurrentPlayer = "White"
-	#await get_tree().create_timer(0.1).timeout
-	#SignalBus.start_placement_phase.emit()
+#shows the winner message once the game ends
+func _end_game(message) -> void:
+	winner_label.text = message

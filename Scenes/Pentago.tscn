@@ -9,3 +9,10 @@ script = ExtResource("1_emlq5")
 [node name="RotationButtons" parent="." instance=ExtResource("2_lyg4x")]
 visible = false
 position = Vector2(16, 560)
+
+[node name="WinnerLabel" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 30

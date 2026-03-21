@@ -77,19 +77,13 @@ func add_side() -> void:
 	spaces.append(selected_space)
 	sides.append(selected_space)
 	
+#manually rotates each of the space in the array in order
 func rotate_spaces(array) -> void:
 	SignalBus.get_first_space_color.emit(array[0])
-	SignalBus.get_second_space_color.emit(array[1])
-	SignalBus.set_space_color.emit(array[1], first_space_color)
-	first_space_color = second_space_color
-	SignalBus.get_second_space_color.emit(array[2])
-	SignalBus.set_space_color.emit(array[2], first_space_color)
-	first_space_color = second_space_color
-	SignalBus.get_second_space_color.emit(array[3])
-	SignalBus.set_space_color.emit(array[3], first_space_color)
-	first_space_color = second_space_color
-	SignalBus.get_second_space_color.emit(array[0])
-	SignalBus.set_space_color.emit(array[0], first_space_color)
+	for i in range(array.size()):
+		SignalBus.get_second_space_color.emit(array[(i + 1) % array.size()])
+		SignalBus.set_space_color.emit(array[(i + 1) % array.size()], first_space_color)
+		first_space_color = second_space_color
 	
 #gets the color of the first space to rotate with
 func _send_first_space_color(status) -> void:

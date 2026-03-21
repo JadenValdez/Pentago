@@ -53,6 +53,7 @@ func _get_first_space_color(first_coordinate) -> void:
 	if first_coordinate == space_coordinate:
 		SignalBus.send_first_space_color.emit(status)
 
+#changes the color of the space when it is rotated
 func _set_space_color(coordinate, space_color) -> void:
 	if coordinate == space_coordinate:
 		status = space_color

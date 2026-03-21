@@ -10,6 +10,7 @@ func _ready() -> void:
 	SignalBus.start_placement_phase.connect(_start_placement_phase)
 	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
 	SignalBus.select_block.connect(_select_block)
+	SignalBus.end_game.connect(_end_game)
 	create_spaces()
 
 #creates 9 empty spaces in a 3x3 grid for each block
@@ -38,8 +39,12 @@ func _on_control_gui_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_LEFT:
 				SignalBus.select_block.emit(block_coordinate)
 				
+#when the block is selected, highlight it
 func _select_block(coordinate) -> void:
 	if coordinate == block_coordinate:
 		background.modulate = Color(1, 1, 1, 0.2)
 	else:
 		background.modulate = Color(1, 1, 1, 1)
+		
+func _end_game(_message) -> void:
+	background.modulate = Color(1, 1, 1, 1)
