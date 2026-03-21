@@ -9,7 +9,11 @@ var second_space_coordinate: int
 var first_space_color: String
 var second_space_color: String
 
+var white_won = false
+var black_won = false
+
 func _ready() -> void:
+	SignalBus.send_first_space_color.connect(_send_first_space_color)
 	SignalBus.send_second_space_color.connect(_send_second_space_color)
 
 #checks if the ball that was placed creates a five-in-a-row
@@ -25,6 +29,32 @@ func CheckWinPlacement(space_coordinate, color) -> void:
 	else:
 		#if a five-in-a-row was not created, then it moves to the rotation phase
 		SignalBus.start_rotation_phase.emit()
+		
+func CheckWinRotation(spaces) -> void:
+	for space in spaces:
+		SignalBus.get_first_space_color.emit(space)
+		if first_space_color != "Empty":
+			first_space_coordinate = space
+			if first_space_color == "White":
+				if check_horizontal_win():
+					white_won = true
+				elif check_vertical_win():
+					white_won = true
+				elif check_diagonal_win():
+					white_won = true
+				else:
+					pass
+			elif first_space_color == "Black":
+				if check_horizontal_win():
+					black_won = true
+				elif check_vertical_win():
+					black_won = true
+				elif check_diagonal_win():
+					black_won = true
+				else:
+					pass
+				
+	check_win_condition()
 	
 #checks for a horizontal five-in-a-row
 func check_horizontal_win() -> bool:
@@ -104,6 +134,10 @@ func same_color() -> bool:
 	else:
 		return false
 
+#gets the color of the second space to check for
+func _send_first_space_color(status) -> void:
+	first_space_color = status
+
 #gets the color of the second space to check against
 func _send_second_space_color(status) -> void:
 	second_space_color = status
@@ -111,3 +145,17 @@ func _send_second_space_color(status) -> void:
 #if a five-in-a-row is created, then the current player is the winner
 func set_winner(winner) -> void:
 	print(winner)
+
+func check_win_condition() -> void:
+	if white_won && black_won:
+		set_winner("Tie")
+	elif white_won:
+		set_winner("White")
+	elif black_won:
+		set_winner("Black")
+	else:
+		if GameManager.CurrentPlayer == "White":
+			GameManager.CurrentPlayer = "Black"
+		else: 
+			GameManager.CurrentPlayer = "White"
+		SignalBus.start_placement_phase.emit()

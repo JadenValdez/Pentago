@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://jsyjew6jtn8r"]
+[gd_scene load_steps=3 format=3 uid="uid://jsyjew6jtn8r"]
 
 [ext_resource type="Script" path="res://Scripts/Pentago.gd" id="1_emlq5"]
+[ext_resource type="PackedScene" uid="uid://clkpujry6t0ll" path="res://Scenes/RotationButtons.tscn" id="2_lyg4x"]
 
 [node name="Pentago" type="Node2D"]
 script = ExtResource("1_emlq5")
+
+[node name="RotationButtons" parent="." instance=ExtResource("2_lyg4x")]
+visible = false
+position = Vector2(16, 560)

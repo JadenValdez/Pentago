@@ -20,11 +20,11 @@ func _on_cc_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				RotationLogic.rotate_counterclockwise(selected_block)
+				RotationLogic.RotateCounterClockwise(selected_block)
 
 #rotates the selected block clockwise
 func _on_c_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				RotationLogic.rotate_clockwise(selected_block)
+				RotationLogic.RotateClockwise(selected_block)

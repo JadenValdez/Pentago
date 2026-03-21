@@ -8,37 +8,37 @@ script = ExtResource("1_17twa")
 [node name="CounterClockwiseButton" type="Node2D" parent="."]
 
 [node name="CCBackground" type="ColorRect" parent="CounterClockwiseButton"]
-offset_right = 128.0
+offset_right = 104.0
 offset_bottom = 64.0
 color = Color(0, 0, 0, 1)
 
 [node name="CCShape" type="Polygon2D" parent="CounterClockwiseButton"]
+position = Vector2(-8, 0)
 polygon = PackedVector2Array(104, 56, 104, 32, 80, 8, 48, 8, 24, 32, 24, 40, 16, 40, 32, 56, 48, 40, 40, 40, 40, 32, 48, 24, 80, 24, 88, 32, 88, 56)
 
 [node name="CCControl" type="Control" parent="CounterClockwiseButton"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_right = 128.0
+offset_right = 104.0
 offset_bottom = 64.0
 
 [node name="ClockwiseButton" type="Node2D" parent="."]
 
 [node name="CBackground" type="ColorRect" parent="ClockwiseButton"]
-offset_left = 192.0
-offset_right = 320.0
+offset_left = 120.0
+offset_right = 224.0
 offset_bottom = 64.0
 color = Color(0, 0, 0, 1)
 
 [node name="CShape" type="Polygon2D" parent="ClockwiseButton"]
+position = Vector2(-88, 0)
 polygon = PackedVector2Array(216, 56, 216, 32, 240, 8, 272, 8, 296, 32, 296, 40, 304, 40, 288, 56, 272, 40, 280, 40, 280, 32, 272, 24, 240, 24, 232, 32, 232, 56)
 
 [node name="CControl" type="Control" parent="ClockwiseButton"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 192.0
-offset_right = 320.0
+offset_left = 120.0
+offset_right = 224.0
 offset_bottom = 64.0
 
 [connection signal="gui_input" from="CounterClockwiseButton/CCControl" to="." method="_on_cc_control_gui_input"]

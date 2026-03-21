@@ -5,7 +5,7 @@ const screen_size = Vector2(1152, 648)
 
 
 func _ready() -> void:
-	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
+	#SignalBus.start_rotation_phase.connect(_start_rotation_phase)
 	create_blocks()
 
 #creates a grid of blocks, each which contain 9 spaces
@@ -19,10 +19,10 @@ func create_blocks() -> void:
 
 #changes the current player
 #currently a stand-in, as rotation phase isnt implemented yet
-func _start_rotation_phase() -> void:
-	if GameManager.CurrentPlayer == "White":
-		GameManager.CurrentPlayer = "Black"
-	else: 
-		GameManager.CurrentPlayer = "White"
-	await get_tree().create_timer(0.1).timeout
-	SignalBus.start_placement_phase.emit()
+#func _start_rotation_phase() -> void:
+	#if GameManager.CurrentPlayer == "White":
+		#GameManager.CurrentPlayer = "Black"
+	#else: 
+		#GameManager.CurrentPlayer = "White"
+	#await get_tree().create_timer(0.1).timeout
+	#SignalBus.start_placement_phase.emit()

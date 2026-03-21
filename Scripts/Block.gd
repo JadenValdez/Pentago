@@ -2,12 +2,14 @@ extends Node2D
 
 const SPACE = preload("res://Scenes/Space.tscn")
 @onready var control: Control = $Control
+@onready var background: ColorRect = $Background
 
 var block_coordinate: int
 
 func _ready() -> void:
 	SignalBus.start_placement_phase.connect(_start_placement_phase)
 	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
+	SignalBus.select_block.connect(_select_block)
 	create_spaces()
 
 #creates 9 empty spaces in a 3x3 grid for each block
@@ -23,6 +25,7 @@ func create_spaces() -> void:
 #becomes inactive at the start of the placement phase
 func _start_placement_phase() -> void:
 	control.hide()
+	background.modulate = Color(1, 1, 1, 1)
 
 #becomes active at the start of the rotation phase
 func _start_rotation_phase() -> void:
@@ -34,3 +37,9 @@ func _on_control_gui_input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				SignalBus.select_block.emit(block_coordinate)
+				
+func _select_block(coordinate) -> void:
+	if coordinate == block_coordinate:
+		background.modulate = Color(1, 1, 1, 0.2)
+	else:
+		background.modulate = Color(1, 1, 1, 1)

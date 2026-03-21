@@ -18,7 +18,7 @@ func _ready() -> void:
 	SignalBus.get_second_space_color.connect(_get_second_space_color)
 	SignalBus.set_space_color.connect(_set_space_color)
 	SignalBus.get_first_space_color.connect(_get_first_space_color)
-	label.text = str(space_coordinate)
+	#label.text = str(space_coordinate)
 
 #changes color based on who's ball it currently holds
 func _draw() -> void:
