@@ -16,6 +16,8 @@ func _ready() -> void:
 	SignalBus.start_placement_phase.connect(_start_placement_phase)
 	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
 	SignalBus.get_second_space_color.connect(_get_second_space_color)
+	SignalBus.set_space_color.connect(_set_space_color)
+	SignalBus.get_first_space_color.connect(_get_first_space_color)
 	label.text = str(space_coordinate)
 
 #changes color based on who's ball it currently holds
@@ -45,3 +47,13 @@ func _start_rotation_phase() -> void:
 func _get_second_space_color(second_coordinate) -> void:
 	if second_coordinate == space_coordinate:
 		SignalBus.send_second_space_color.emit(status)
+		
+#sends information about its own color for rotation purposes
+func _get_first_space_color(first_coordinate) -> void:
+	if first_coordinate == space_coordinate:
+		SignalBus.send_first_space_color.emit(status)
+
+func _set_space_color(coordinate, space_color) -> void:
+	if coordinate == space_coordinate:
+		status = space_color
+		queue_redraw()

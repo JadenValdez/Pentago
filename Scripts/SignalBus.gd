@@ -3,5 +3,12 @@ extends Node
 signal start_placement_phase
 signal start_rotation_phase
 
+signal get_first_space_color
+signal send_first_space_color
 signal get_second_space_color
 signal send_second_space_color
+
+signal select_block
+signal rotate_counterclockwise
+signal rotate_clockwise
+signal set_space_color
