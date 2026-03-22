@@ -6,6 +6,10 @@ extends Node2D
 const COLORS: Dictionary = {
 	"White": Color(1, 1, 1),
 	"Black": Color(0, 0, 0),
+	"Red": Color(1, 0, 0),
+	"Blue": Color(0, 0, 1),
+	"Yellow": Color(1, 1, 0),
+	"Green": Color(0, 1, 0),
 	"Empty": Color(0.5, 0.5, 0.5)
 }
 

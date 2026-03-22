@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcxr46o2aaijo"]
 
-[ext_resource type="Script" path="res://Scripts/Block.gd" id="1_aqd0t"]
+[ext_resource type="Script" path="res://Scripts/Block.gd" id="1_e8ips"]
 
 [node name="Block" type="Node2D"]
-script = ExtResource("1_aqd0t")
+script = ExtResource("1_e8ips")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -1

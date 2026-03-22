@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://8awhsjy2hh3r"]
 
-[ext_resource type="Script" path="res://Scripts/Space.gd" id="1_5nx23"]
+[ext_resource type="Script" path="res://Scripts/Space.gd" id="1_t875w"]
 
 [node name="Space" type="Node2D"]
-script = ExtResource("1_5nx23")
+script = ExtResource("1_t875w")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

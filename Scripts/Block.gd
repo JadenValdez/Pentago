@@ -1,6 +1,6 @@
 extends Node2D
 
-const SPACE = preload("res://Scenes/Space.tscn")
+const SPACE = preload("res://Scenes/GamePieces/Space.tscn")
 @onready var control: Control = $Control
 @onready var background: ColorRect = $Background
 

@@ -2,15 +2,14 @@ extends Node
 
 var check_coordinate: int
 var current_row: int
-#var current_column: int
 
 var first_space_coordinate: int
 var second_space_coordinate: int
 var first_space_color: String
 var second_space_color: String
 
-var white_won = false
-var black_won = false
+var white_won: bool = false
+var black_won: bool = false
 
 func _ready() -> void:
 	SignalBus.send_first_space_color.connect(_send_first_space_color)

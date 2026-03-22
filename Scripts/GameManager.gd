@@ -1,10 +1,14 @@
 extends Node
 
-var CurrentPlayer = "White"
-var CurrentPhase = "Placement"
+var CurrentPlayer: String = "White"
+var CurrentPhase: String = "Placement"
+var PlayerOrder: Array = ["White", "Black"]
 
-var SpaceRows = 6
-var SpaceColumns = 6
+var PlayerAmount: int = 2
+var OwnedColorsAmount: int = 1
 
-var BlockRows = 2
-var BlockColumns = 2
+var SpaceRows: int = 6
+var SpaceColumns: int = 6
+
+var BlockRows: int = 2
+var BlockColumns: int = 2

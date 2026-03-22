@@ -14,10 +14,7 @@ func _ready() -> void:
 
 #rotates the selected block counterclockwise
 func RotateCounterClockwise(block_coordinate) -> void:
-	reset_arrays()
-	get_middle(block_coordinate)
-	get_corners()
-	get_sides()
+	get_spaces(block_coordinate)
 	corners.reverse()
 	sides.reverse()
 	rotate_spaces(corners)
@@ -26,13 +23,17 @@ func RotateCounterClockwise(block_coordinate) -> void:
 
 #rotates the selected block clockwise
 func RotateClockwise(block_coordinate) -> void:
+	get_spaces(block_coordinate)
+	rotate_spaces(corners)
+	rotate_spaces(sides)
+	WinLogic.CheckWinRotation(spaces)
+
+#gets the 9 spaces on the selected block and sorts them into middle, corners, and sides
+func get_spaces(block_coordinate) -> void:
 	reset_arrays()
 	get_middle(block_coordinate)
 	get_corners()
 	get_sides()
-	rotate_spaces(corners)
-	rotate_spaces(sides)
-	WinLogic.CheckWinRotation(spaces)
 
 #reset arrays to get ready for the next rotation
 func reset_arrays() -> void:

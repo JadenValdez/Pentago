@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcjr8ipt1brxb"]
+
+[ext_resource type="Script" path="res://Scripts/GameCustomization.gd" id="1_s3h54"]
+
+[node name="GameCustomization" type="Node2D"]
+script = ExtResource("1_s3h54")
+
+[node name="ModeSelection" type="Node2D" parent="."]
+visible = false
+
+[node name="MSLabel" type="Label" parent="ModeSelection"]
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 35
+text = "Choose a game mode:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pentago" type="Button" parent="ModeSelection"]
+offset_left = 160.0
+offset_top = 320.0
+offset_right = 480.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 40
+text = "Pentago
+"
+
+[node name="PentagoXL" type="Button" parent="ModeSelection"]
+offset_left = 672.0
+offset_top = 320.0
+offset_right = 992.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 40
+text = "Pentago XL
+"
+
+[node name="TeamSelection" type="Node2D" parent="."]
+
+[node name="TSLabel" type="Label" parent="TeamSelection"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 35
+text = "How are the players/teams divided?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FourPlayersFFA" type="Button" parent="TeamSelection"]
+offset_left = 384.0
+offset_top = 256.0
+offset_right = 768.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 20
+text = "4 Players - FFA"
+
+[node name="TwoPlayersTwoColors" type="Button" parent="TeamSelection"]
+offset_left = 384.0
+offset_top = 384.0
+offset_right = 768.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 20
+text = "2 Teams - Two Colors Each"
+
+[node name="TwoPlayersOneColor" type="Button" parent="TeamSelection"]
+offset_left = 384.0
+offset_top = 512.0
+offset_right = 768.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 20
+text = "2 Teams - One Color Each"
+
+[node name="ColorAllocation" type="Node2D" parent="."]
+
+[node name="Back" type="Button" parent="."]
+offset_left = 1024.0
+offset_top = 576.0
+offset_right = 1141.0
+offset_bottom = 631.0
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[connection signal="pressed" from="ModeSelection/Pentago" to="." method="_on_pentago_pressed"]
+[connection signal="pressed" from="ModeSelection/PentagoXL" to="." method="_on_pentago_xl_pressed"]
+[connection signal="pressed" from="TeamSelection/FourPlayersFFA" to="." method="_on_four_players_ffa_pressed"]
+[connection signal="pressed" from="TeamSelection/TwoPlayersTwoColors" to="." method="_on_two_players_two_colors_pressed"]
+[connection signal="pressed" from="TeamSelection/TwoPlayersOneColor" to="." method="_on_two_players_one_color_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
