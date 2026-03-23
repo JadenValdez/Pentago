@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var control: Control = $Control
-@onready var label: Label = $Label
 
 const COLORS: Dictionary = {
 	"White": Color(1, 1, 1),
@@ -22,7 +21,7 @@ func _ready() -> void:
 	SignalBus.get_second_space_color.connect(_get_second_space_color)
 	SignalBus.set_space_color.connect(_set_space_color)
 	SignalBus.get_first_space_color.connect(_get_first_space_color)
-	#label.text = str(space_coordinate)
+	SignalBus.end_game.connect(_end_game)
 
 #changes color based on who's ball it currently holds
 func _draw() -> void:
@@ -33,19 +32,18 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				status = GameManager.CurrentPlayer
-				queue_redraw()
-				WinLogic.CheckWinPlacement(space_coordinate, GameManager.CurrentPlayer)
+				if status == "Empty":
+					status = GameManager.CurrentPlayer
+					queue_redraw()
+					WinLogic.CheckWinPlacement(space_coordinate, GameManager.CurrentPlayer)
 
 #becomes active during the placement phase
 func _start_placement_phase() -> void:
 	control.show()
-	label.show()
 	
 #becomes inactive during the placement phase
 func _start_rotation_phase() -> void:
 	control.hide()
-	label.hide()
 	
 #sends information about its own color for win condition purposes
 func _get_second_space_color(second_coordinate) -> void:
@@ -62,3 +60,7 @@ func _set_space_color(coordinate, space_color) -> void:
 	if coordinate == space_coordinate:
 		status = space_color
 		queue_redraw()
+
+#becomes inactive when the game ends
+func _end_game(_message) -> void:
+	control.hide()

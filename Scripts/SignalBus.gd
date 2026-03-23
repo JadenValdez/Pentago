@@ -15,3 +15,4 @@ signal set_space_color
 
 signal start_game
 signal end_game
+signal clear_board

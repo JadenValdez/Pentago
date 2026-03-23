@@ -11,6 +11,7 @@ func _ready() -> void:
 	SignalBus.start_rotation_phase.connect(_start_rotation_phase)
 	SignalBus.select_block.connect(_select_block)
 	SignalBus.end_game.connect(_end_game)
+	SignalBus.clear_board.connect(_clear_board)
 	create_spaces()
 
 #creates 9 empty spaces in a 3x3 grid for each block
@@ -46,5 +47,11 @@ func _select_block(coordinate) -> void:
 	else:
 		background.modulate = Color(1, 1, 1, 1)
 		
+#becomes inactive when the game ends
 func _end_game(_message) -> void:
+	control.hide()
 	background.modulate = Color(1, 1, 1, 1)
+	
+#clears block from memory
+func _clear_board() -> void:
+	queue_free()

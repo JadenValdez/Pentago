@@ -8,22 +8,31 @@ var second_space_coordinate: int
 var first_space_color: String
 var second_space_color: String
 
-var winners = []
+var winners: Array = []
+var color_already_won: bool = false
 
 func _ready() -> void:
 	SignalBus.send_first_space_color.connect(_send_first_space_color)
 	SignalBus.send_second_space_color.connect(_send_second_space_color)
+	SignalBus.start_game.connect(_start_game)
+
+#reset the winner array when starting a new game
+func _start_game() -> void:
+	winners = []
 
 #checks if the ball that was placed creates a five-in-a-row
 func CheckWinPlacement(space_coordinate, color) -> void:
 	first_space_coordinate = space_coordinate
 	first_space_color = color
 	if check_horizontal_win():
-		set_winner(first_space_color)
+		winners = [first_space_color]
+		set_winner()
 	elif check_vertical_win():
-		set_winner(first_space_color)
+		winners = [first_space_color]
+		set_winner()
 	elif check_diagonal_win():
-		set_winner(first_space_color)
+		winners = [first_space_color]
+		set_winner()
 	else:
 		#if a five-in-a-row was not created, then it moves to the rotation phase
 		SignalBus.start_rotation_phase.emit()
@@ -34,11 +43,25 @@ func CheckWinRotation(spaces) -> void:
 		if first_space_color != "Empty":
 			first_space_coordinate = space
 			if winners != []:
-				pass
-			else:
+				color_already_won = false
 				for color in winners:
 					if first_space_color == color:
-						break
+						color_already_won = true
+				if !color_already_won:
+					if check_horizontal_win():
+						add_winner(first_space_color)
+					elif check_vertical_win():
+						add_winner(first_space_color)
+					elif check_diagonal_win():
+						add_winner(first_space_color)
+			else:
+				if check_horizontal_win():
+					add_winner(first_space_color)
+				elif check_vertical_win():
+					add_winner(first_space_color)
+				elif check_diagonal_win():
+					add_winner(first_space_color)
+				
 				
 	check_win_condition()
 	
@@ -129,23 +152,30 @@ func _send_second_space_color(status) -> void:
 	second_space_color = status
 	
 #if a five-in-a-row is created, then whoever owns it is the winner
-#if a five-in-a-row is created for both players, then it is a tie
-func set_winner(winner) -> void:
-	if winner == "Tie":
-		SignalBus.end_game.emit("It's a Tie!")
+#if a five-in-a-row is created for different teams, then it is a tie
+func set_winner() -> void:
+	GameManager.CurrentPhase = "Game Over"
+	if winners.size() == 1:
+		SignalBus.end_game.emit(winners[0] + " wins!")
+	elif GameManager.PlayerAmount == 2 && GameManager.PlayerOrder.size() == 4:
+		if winners.has("Blue") && winners.has("Green") && !winners.has("Red") && !winners.has("Yellow"):
+			SignalBus.end_game.emit("Blue and Green win!")
+		elif winners.has("Red") && winners.has("Yellow") && !winners.has("Blue") && !winners.has("Green"):
+			SignalBus.end_game.emit("Red and Yellow win!")
+		else:
+			SignalBus.end_game.emit("It's a Tie!")
 	else:
-		SignalBus.end_game.emit(winner + " wins!")
+		SignalBus.end_game.emit("It's a Tie!")
+		
+#if a player made a five-in-a-row during the rotation phase, then add them to the winner list
+func add_winner(winner) -> void:
+	if !winners.has(winner):
+		winners.append(winner)
 
 #if a player got a five-in-a-row, the game ends
 #otherwise, the game continues with the next player taking their turn
 func check_win_condition() -> void:
-	if white_won && black_won:
-		set_winner("Tie")
-	elif white_won:
-		set_winner("White")
-	elif black_won:
-		set_winner("Black")
-	else:
+	if winners.is_empty():
 		if GameManager.CurrentPlayer == GameManager.PlayerOrder[-1]:
 			GameManager.CurrentPlayer = GameManager.PlayerOrder[0]
 			GameManager.PlayerOrderIndex = 0
@@ -153,3 +183,7 @@ func check_win_condition() -> void:
 			GameManager.PlayerOrderIndex += 1
 			GameManager.CurrentPlayer = GameManager.PlayerOrder[GameManager.PlayerOrderIndex]
 		SignalBus.start_placement_phase.emit()
+	else:
+		set_winner()
+		
+		

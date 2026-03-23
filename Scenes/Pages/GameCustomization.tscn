@@ -72,9 +72,6 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 20
 text = "2 Teams - One Color Each"
 
-[node name="ColorAllocation" type="Node2D" parent="."]
-visible = false
-
 [node name="Back" type="Button" parent="."]
 offset_left = 1024.0
 offset_top = 576.0
