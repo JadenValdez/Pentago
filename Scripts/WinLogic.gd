@@ -8,8 +8,7 @@ var second_space_coordinate: int
 var first_space_color: String
 var second_space_color: String
 
-var white_won: bool = false
-var black_won: bool = false
+var winners = []
 
 func _ready() -> void:
 	SignalBus.send_first_space_color.connect(_send_first_space_color)
@@ -34,24 +33,12 @@ func CheckWinRotation(spaces) -> void:
 		SignalBus.get_first_space_color.emit(space)
 		if first_space_color != "Empty":
 			first_space_coordinate = space
-			if first_space_color == "White":
-				if check_horizontal_win():
-					white_won = true
-				elif check_vertical_win():
-					white_won = true
-				elif check_diagonal_win():
-					white_won = true
-				else:
-					pass
-			elif first_space_color == "Black":
-				if check_horizontal_win():
-					black_won = true
-				elif check_vertical_win():
-					black_won = true
-				elif check_diagonal_win():
-					black_won = true
-				else:
-					pass
+			if winners != []:
+				pass
+			else:
+				for color in winners:
+					if first_space_color == color:
+						break
 				
 	check_win_condition()
 	
@@ -159,8 +146,10 @@ func check_win_condition() -> void:
 	elif black_won:
 		set_winner("Black")
 	else:
-		if GameManager.CurrentPlayer == "White":
-			GameManager.CurrentPlayer = "Black"
+		if GameManager.CurrentPlayer == GameManager.PlayerOrder[-1]:
+			GameManager.CurrentPlayer = GameManager.PlayerOrder[0]
+			GameManager.PlayerOrderIndex = 0
 		else: 
-			GameManager.CurrentPlayer = "White"
+			GameManager.PlayerOrderIndex += 1
+			GameManager.CurrentPlayer = GameManager.PlayerOrder[GameManager.PlayerOrderIndex]
 		SignalBus.start_placement_phase.emit()

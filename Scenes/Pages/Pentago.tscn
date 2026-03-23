@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://jsyjew6jtn8r"]
+[gd_scene load_steps=5 format=3 uid="uid://jsyjew6jtn8r"]
 
 [ext_resource type="Script" path="res://Scripts/Pentago.gd" id="1_6xm0i"]
+[ext_resource type="PackedScene" uid="uid://btikk6tcdgd0h" path="res://Scenes/Pages/MainMenu.tscn" id="2_6y1g4"]
 [ext_resource type="PackedScene" uid="uid://clkpujry6t0ll" path="res://Scenes/GamePieces/RotationButtons.tscn" id="2_nq8br"]
+[ext_resource type="PackedScene" uid="uid://dcjr8ipt1brxb" path="res://Scenes/Pages/GameCustomization.tscn" id="3_xpyho"]
 
 [node name="Pentago" type="Node2D"]
 script = ExtResource("1_6xm0i")
+
+[node name="MainMenu" parent="." instance=ExtResource("2_6y1g4")]
+
+[node name="GameCustomization" parent="." instance=ExtResource("3_xpyho")]
+visible = false
 
 [node name="RotationButtons" parent="." instance=ExtResource("2_nq8br")]
 visible = false

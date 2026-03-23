@@ -13,4 +13,5 @@ signal rotate_counterclockwise
 signal rotate_clockwise
 signal set_space_color
 
+signal start_game
 signal end_game
