@@ -7,6 +7,7 @@ extends Node2D
 const BLOCK = preload("res://Scenes/GamePieces/Block.tscn")
 const screen_size: Vector2 = Vector2(1152, 648)
 @onready var label: Label = $Label
+@onready var players: Label = $Players
 
 
 func _ready() -> void:
@@ -19,10 +20,12 @@ func _start_game() -> void:
 	main_menu.hide()
 	main_menu_button.show()
 	game_customization.hide()
+	
 	GameManager.CurrentPlayer = GameManager.PlayerOrder[0]
 	GameManager.PlayerOrderIndex = 0
 	label.text = GameManager.CurrentPlayer + ":
-		Place your ball"
+		Place your marble"
+	players.text = GameManager.VSMessage
 	create_blocks()
 
 #creates a grid of blocks, each which contain 9 spaces
@@ -38,7 +41,7 @@ func create_blocks() -> void:
 #changes label text at start of placement phase
 func _start_placement_phase() -> void:
 	label.text = GameManager.CurrentPlayer + ":
-		Place your ball"
+		Place your marble"
 	
 #changes label text at start of rotation phase
 func _start_rotation_phase() -> void:
@@ -54,4 +57,5 @@ func _on_main_menu_button_pressed() -> void:
 	main_menu_button.hide()
 	main_menu.show()
 	label.text = ""
+	players.text = ""
 	SignalBus.clear_board.emit()

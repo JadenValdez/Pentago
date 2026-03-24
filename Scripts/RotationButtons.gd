@@ -5,6 +5,7 @@ var selected_block: int
 func _ready() -> void:
 	SignalBus.start_placement_phase.connect(_start_placement_phase)
 	SignalBus.select_block.connect(_select_block)
+	SignalBus.end_game.connect(_end_game)
 
 #becomes inactive at the start of the placement phase
 func _start_placement_phase() -> void:
@@ -28,3 +29,7 @@ func _on_c_control_gui_input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				RotationLogic.RotateClockwise(selected_block)
+				
+#becomes inactive when the game ends
+func _end_game(_message) -> void:
+	pass

@@ -24,6 +24,7 @@ func _on_pentago_pressed() -> void:
 	set_board_settings(2)
 	GameManager.PlayerAmount = 2
 	GameManager.PlayerOrder = ["White", "Black"]
+	GameManager.VSMessage = ""
 	set_player_settings()
 	SignalBus.start_game.emit()
 
@@ -61,6 +62,8 @@ func set_player_settings() -> void:
 func _on_four_players_ffa_pressed() -> void:
 	GameManager.PlayerAmount = 4
 	GameManager.PlayerOrder = ["Blue", "Red", "Green", "Yellow"]
+	GameManager.VSMessage = "Blue vs Red vs 
+	Green vs Yellow"
 	set_player_settings()
 	SignalBus.start_game.emit()
 
@@ -68,6 +71,9 @@ func _on_four_players_ffa_pressed() -> void:
 func _on_two_players_two_colors_pressed() -> void:
 	GameManager.PlayerAmount = 2
 	GameManager.PlayerOrder = ["Blue", "Red", "Green", "Yellow"]
+	GameManager.VSMessage = "Blue + Green
+	vs
+	Red + Yellow"
 	set_player_settings()
 	SignalBus.start_game.emit()
 
@@ -75,5 +81,6 @@ func _on_two_players_two_colors_pressed() -> void:
 func _on_two_players_one_color_pressed() -> void:
 	GameManager.PlayerAmount = 2
 	GameManager.PlayerOrder = ["Blue", "Red"]
+	GameManager.VSMessage = "Blue vs Red"
 	set_player_settings()
 	SignalBus.start_game.emit()

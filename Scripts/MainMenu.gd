@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var game_customization: Node2D = $"../GameCustomization"
+@onready var instructions: Node2D = $"../Instructions"
 
 
 func _ready() -> void:
@@ -12,7 +13,7 @@ func _on_play_pressed() -> void:
 
 func _on_instructions_pressed() -> void:
 	self.hide()
-	#load instructions page
+	instructions.show()
 
 func _on_exit_game_pressed() -> void:
 	get_tree().quit()

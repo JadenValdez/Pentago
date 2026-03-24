@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://jsyjew6jtn8r"]
+[gd_scene load_steps=6 format=3 uid="uid://jsyjew6jtn8r"]
 
 [ext_resource type="Script" path="res://Scripts/Pentago.gd" id="1_6xm0i"]
 [ext_resource type="PackedScene" uid="uid://btikk6tcdgd0h" path="res://Scenes/Pages/MainMenu.tscn" id="2_6y1g4"]
 [ext_resource type="PackedScene" uid="uid://clkpujry6t0ll" path="res://Scenes/GamePieces/RotationButtons.tscn" id="2_nq8br"]
+[ext_resource type="Script" path="res://Scripts/Instructions.gd" id="3_0gmb4"]
 [ext_resource type="PackedScene" uid="uid://dcjr8ipt1brxb" path="res://Scenes/Pages/GameCustomization.tscn" id="3_xpyho"]
 
 [node name="Pentago" type="Node2D"]
@@ -10,19 +11,48 @@ script = ExtResource("1_6xm0i")
 
 [node name="MainMenu" parent="." instance=ExtResource("2_6y1g4")]
 
+[node name="Instructions" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_0gmb4")
+
+[node name="Label" type="Label" parent="Instructions"]
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 1128.0
+offset_bottom = 624.0
+theme_override_font_sizes/font_size = 28
+text = "Goal: Form a five-in-a-row in any direction before your opponent does.
+
+Playing: Each turn consists of placing one marble on any empty space on the board, then twisting any of the blocks 90 degrees in either direction.
+
+Game End: When a five-in-a-row is formed, the game ends and the player who owns the five-in-a-row wins! If a five-in-a-row is made for both players simultaneously, or if all spaces are filled and there are no five-in-a-rows after the rotation phase, then it is a tie.
+
+Pentago XL: This is a larger variant has a bigger grid and supports team play. Teams can own 1 or 2 colors, but must still make a five-in-a-row out of one of their owned colors (making a Blue+Red five-in-a-row is not possible)."
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="Instructions"]
+offset_left = 1024.0
+offset_top = 576.0
+offset_right = 1128.0
+offset_bottom = 624.0
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
 [node name="GameCustomization" parent="." instance=ExtResource("3_xpyho")]
 visible = false
 
 [node name="RotationButtons" parent="." instance=ExtResource("2_nq8br")]
 visible = false
-position = Vector2(16, 560)
+position = Vector2(40, 560)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 296.0
-offset_bottom = 128.0
-theme_override_font_sizes/font_size = 30
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 288.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="MainMenuButton" type="Button" parent="."]
@@ -34,4 +64,13 @@ offset_bottom = 639.0
 theme_override_font_sizes/font_size = 20
 text = "Main Menu"
 
+[node name="Players" type="Label" parent="."]
+offset_left = 864.0
+offset_top = 48.0
+offset_right = 1144.0
+offset_bottom = 184.0
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Instructions/Button" to="Instructions" method="_on_button_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
