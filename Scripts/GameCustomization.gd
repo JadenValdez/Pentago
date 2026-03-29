@@ -66,6 +66,7 @@ func _on_four_players_ffa_pressed() -> void:
 	Green vs Yellow"
 	set_player_settings()
 	SignalBus.start_game.emit()
+	go_to_page("Mode Selection")
 
 #starts a 2 team game using two colors each
 func _on_two_players_two_colors_pressed() -> void:
@@ -76,6 +77,7 @@ func _on_two_players_two_colors_pressed() -> void:
 	Red + Yellow"
 	set_player_settings()
 	SignalBus.start_game.emit()
+	go_to_page("Mode Selection")
 
 #starts a 2 team game using one color each
 func _on_two_players_one_color_pressed() -> void:
@@ -84,3 +86,4 @@ func _on_two_players_one_color_pressed() -> void:
 	GameManager.VSMessage = "Blue vs Red"
 	set_player_settings()
 	SignalBus.start_game.emit()
+	go_to_page("Mode Selection")
